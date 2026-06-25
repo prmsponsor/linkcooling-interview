@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>晉惠品牌訪談 — 內容收集表</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #1a4f8a;
+    --blue-light: #e8f0f9;
+    --blue-mid: #2d6cc0;
+    --accent: #c8a84b;
+    --accent-light: #fdf6e3;
+    --text: #1a1a1a;
+    --text-2: #555;
+    --text-3: #888;
+    --border: #e0e0e0;
+    --bg: #f7f8fa;
+    --white: #fff;
+    --success: #1d8a5e;
+    --success-bg: #e8f5ef;
+    --radius: 10px;
+  }
+  body { font-family: 'Inter','PingFang TC','Noto Sans TC',sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+  .header { background: var(--blue); color: white; padding: 32px 24px 28px; text-align: center; }
+  .header-logo { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .header h1 { font-size: 22px; font-weight: 600; line-height: 1.35; margin-bottom: 10px; }
+  .header p { font-size: 13px; color: rgba(255,255,255,0.65); max-width: 480px; margin: 0 auto; }
+
+  .progress-wrap { background: white; border-bottom: 1px solid var(--border); padding: 14px 24px; position: sticky; top: 0; z-index: 100; display: flex; align-items: center; gap: 14px; }
+  .progress-label { font-size: 12px; color: var(--text-3); white-space: nowrap; min-width: 60px; }
+  .progress-bar-bg { flex: 1; height: 5px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--blue-mid), var(--accent)); border-radius: 99px; transition: width 0.4s ease; width: 0%; }
+  .progress-pct { font-size: 12px; font-weight: 600; color: var(--blue); min-width: 34px; text-align: right; }
+
+  .main { max-width: 720px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  .section-nav { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+  .nav-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); cursor: pointer; transition: background 0.2s, transform 0.2s; border: none; padding: 0; }
+  .nav-dot.active { background: var(--blue); transform: scale(1.3); }
+  .nav-dot.done { background: var(--accent); }
+
+  .form-section { display: none; animation: fadeIn 0.25s ease; }
+  .form-section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+  .section-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--blue-light); color: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .section-head-text h2 { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .section-head-text p { font-size: 13px; color: var(--text-2); }
+
+  .q-item { margin-bottom: 22px; }
+  .q-label { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 6px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+  .q-num { font-size: 11px; font-weight: 600; color: var(--text-3); min-width: 24px; padding-top: 2px; }
+  .key-badge { display: inline-block; font-size: 10px; padding: 1px 7px; border-radius: 99px; background: var(--accent-light); color: #8a6a10; font-weight: 600; white-space: nowrap; margin-left: 4px; flex-shrink: 0; }
+  .q-hint { font-size: 12px; color: var(--text-3); margin: 0 0 8px 32px; font-style: italic; line-height: 1.5; }
+  textarea { width: 100%; min-height: 90px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 14px; font-family: inherit; color: var(--text); background: var(--white); resize: vertical; transition: border-color 0.2s, box-shadow 0.2s; line-height: 1.6; }
+  textarea:focus { outline: none; border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(45,108,192,0.1); }
+  textarea.has-content { border-color: #aac8f0; }
+
+  .nav-btns { display: flex; gap: 10px; margin-top: 28px; align-items: center; justify-content: space-between; }
+  .btn { padding: 10px 22px; border-radius: var(--radius); font-size: 14px; font-weight: 500; font-family: inherit; cursor: pointer; border: 1.5px solid transparent; transition: all 0.15s; }
+  .btn-secondary { background: white; border-color: var(--border); color: var(--text-2); }
+  .btn-secondary:hover { border-color: #bbb; color: var(--text); }
+  .btn-primary { background: var(--blue); color: white; border-color: var(--blue); }
+  .btn-primary:hover { background: var(--blue-mid); border-color: var(--blue-mid); }
+  .btn-submit { background: var(--accent); color: #3a2a00; border-color: var(--accent); font-weight: 600; }
+  .btn-submit:hover { background: #b8943a; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Sender info */
+  .sender-box { background: white; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 24px; }
+  .sender-box p { font-size: 13px; color: var(--text-2); margin-bottom: 12px; }
+  .sender-row { display: flex; gap: 12px; }
+  .sender-field { flex: 1; }
+  .sender-field label { font-size: 12px; font-weight: 500; color: var(--text-2); display: block; margin-bottom: 5px; }
+  .sender-field input { width: 100%; padding: 8px 10px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; font-family: inherit; color: var(--text); background: var(--white); transition: border-color 0.2s; }
+  .sender-field input:focus { outline: none; border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(45,108,192,0.1); }
+  @media (max-width: 480px) { .sender-row { flex-direction: column; } }
+
+  /* Summary / confirm */
+  .summary-page { display: none; animation: fadeIn 0.3s ease; }
+  .summary-page.active { display: block; }
+  .summary-header { text-align: center; padding: 32px 0 28px; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+  .check-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--success-bg); color: var(--success); display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 16px; }
+  .summary-header h2 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+  .summary-header p { font-size: 14px; color: var(--text-2); }
+  .summary-section { margin-bottom: 24px; }
+  .summary-section-title { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .summary-q { margin-bottom: 14px; }
+  .summary-q-label { font-size: 13px; font-weight: 500; color: var(--text-2); margin-bottom: 4px; }
+  .summary-q-ans { font-size: 14px; color: var(--text); background: white; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; white-space: pre-wrap; line-height: 1.6; }
+  .summary-q-ans.empty { color: var(--text-3); font-style: italic; }
+  .submit-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+
+  /* Sent confirmation */
+  .sent-page { display: none; animation: fadeIn 0.3s ease; }
+  .sent-page.active { display: block; text-align: center; padding: 60px 20px; }
+  .sent-page .check-icon { margin: 0 auto 20px; width: 64px; height: 64px; font-size: 30px; }
+  .sent-page h2 { font-size: 22px; font-weight: 600; margin-bottom: 10px; }
+  .sent-page p { font-size: 14px; color: var(--text-2); max-width: 400px; margin: 0 auto; line-height: 1.7; }
+
+  @media (max-width: 480px) { .header h1 { font-size: 18px; } .main { padding: 24px 16px 60px; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">Linkcooling × 內容策略</div>
+  <h1>品牌訪談表單</h1>
+  <p>預計填寫時間 20–30 分鐘 · 填完後直接送出，回答會寄給內容團隊</p>
+</div>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">第 1 頁，共 6 頁</span>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+  <span class="progress-pct" id="progressPct">0%</span>
+</div>
+
+<div class="main">
+  <div class="section-nav" id="sectionNav"></div>
+
+  <!-- Section 1 -->
+  <div class="form-section active" data-section="0">
+    <div class="section-head">
+      <div class="section-icon">🎯</div>
+      <div class="section-head-text">
+        <h2>市場定位與競爭</h2>
+        <p>了解晉惠在全球市場中的位置，以及採購者真正在比較什麼。</p>
+      </div>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">1–1</span><span>海外客戶最常拿晉惠跟哪些競爭對手比較？（國家／品牌都可以）</span></div>
+      <div class="q-hint">例如：中國製品牌、日本品牌、美國品牌、其他台灣廠商？</div>
+      <textarea data-key="1-1" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">1–2</span><span>客戶在比較時，最常問的前三個問題是什麼？</span></div>
+      <div class="q-hint">例如：價格、交期、認證文件、售後服務、零件取得...？</div>
+      <textarea data-key="1-2" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">1–3</span><span>晉惠最終贏得訂單的原因，客戶反映最多的是哪一點？</span><span class="key-badge">重點題</span></div>
+      <div class="q-hint">不是你們自己覺得的優勢，而是客戶實際說出口的理由。</div>
+      <textarea data-key="1-3" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">1–4</span><span>有沒有客戶原本選了其他廠商，後來轉回來找晉惠的案例？原因是什麼？</span></div>
+      <textarea data-key="1-4" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="nav-btns">
+      <span></span>
+      <button class="btn btn-primary" onclick="goTo(1)">下一部分 →</button>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <div class="form-section" data-section="1">
+    <div class="section-head">
+      <div class="section-icon">🇹🇼</div>
+      <div class="section-head-text">
+        <h2>台灣製造的實質優勢</h2>
+        <p>「Made in Taiwan」需要具體說明為什麼重要，不能只是標籤。</p>
+      </div>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">2–1</span><span>晉惠冷卻水塔的大致製造流程是什麼？（原料→加工→組裝→測試）</span></div>
+      <div class="q-hint">簡單描述每個階段即可，例如：哪些工序在台灣自製、哪些外包、出廠前做哪些測試？</div>
+      <textarea data-key="2-1" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">2–2</span><span>供應鏈中哪些關鍵零件是台灣本地製造或採購的？</span></div>
+      <div class="q-hint">例如：馬達、填料、散熱盤管、控制面板...？</div>
+      <textarea data-key="2-2" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">2–3</span><span>台灣製造 vs 其他地區製造，交期、品質一致性、零件供應的實際差異？</span></div>
+      <div class="q-hint">有具體數字更好，例如：交期幾週、零件庫存幾年...？</div>
+      <textarea data-key="2-3" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">2–4</span><span>近年供應鏈風險（疫情、地緣政治）對客戶採購決策有什麼影響？有客戶因此轉向台灣的嗎？</span><span class="key-badge">重點題</span></div>
+      <textarea data-key="2-4" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goTo(0)">← 上一部分</button>
+      <button class="btn btn-primary" onclick="goTo(2)">下一部分 →</button>
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <div class="form-section" data-section="2">
+    <div class="section-head">
+      <div class="section-icon">🌏</div>
+      <div class="section-head-text">
+        <h2>客戶樣貌與真實案例</h2>
+        <p>具體案例是文章最有說服力的部分，也是 AI Overview 最容易引用的內容。</p>
+      </div>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">3–1</span><span>海外客戶主要來自哪些國家或地區？哪個市場成長最快？</span></div>
+      <textarea data-key="3-1" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">3–2</span><span>除了印尼食品廠，有沒有其他可以公開分享的客戶案例？</span><span class="key-badge">重點題</span></div>
+      <div class="q-hint">不用完整，有產業、國家、遇到什麼問題、導入後的結果就夠。</div>
+      <textarea data-key="3-2" placeholder="請輸入回答..." style="min-height:110px"></textarea>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">3–3</span><span>客戶第一次聯絡晉惠，最常見的觸發點是什麼？</span></div>
+      <div class="q-hint">例如：舊設備故障、新廠建置、朋友介紹、Google 搜尋、展覽...？</div>
+      <textarea data-key="3-3" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goTo(1)">← 上一部分</button>
+      <button class="btn btn-primary" onclick="goTo(3)">下一部分 →</button>
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <div class="form-section" data-section="3">
+    <div class="section-head">
+      <div class="section-icon">🔧</div>
+      <div class="section-head-text">
+        <h2>產品差異</h2>
+        <p>具體數字讓這個優勢從「聽起來不錯」變成「真正有感」。</p>
+      </div>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">4–1</span><span>維護一台晉惠的設備，跟維護一台競品，工時差距大概是多少？</span><span class="key-badge">重點題</span></div>
+      <div class="q-hint">有具體數字（小時、天數、所需人力）最好，這是文章中很強的具體化說明。</div>
+      <textarea data-key="4-1" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goTo(2)">← 上一部分</button>
+      <button class="btn btn-primary" onclick="goTo(4)">下一部分 →</button>
+    </div>
+  </div>
+
+  <!-- Section 5 -->
+  <div class="form-section" data-section="4">
+    <div class="section-head">
+      <div class="section-icon">💡</div>
+      <div class="section-head-text">
+        <h2>品牌觀點</h2>
+        <p>這幾題沒有標準答案，想聽晉惠自己的判斷和洞察。</p>
+      </div>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">5–1</span><span>如果只有 2 分鐘介紹晉惠，你們會優先說哪一個面向？</span></div>
+      <textarea data-key="5-1" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">5–2</span><span>晉惠和同業最大的差別是哪個項目？（只能說一項）</span><span class="key-badge">重點題</span></div>
+      <textarea data-key="5-2" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">5–3</span><span>台灣製密閉式冷卻水塔，業界有哪些常見迷思或誤解，是晉惠想澄清的？</span></div>
+      <textarea data-key="5-3" placeholder="請輸入回答..."></textarea>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goTo(3)">← 上一部分</button>
+      <button class="btn btn-primary" onclick="goTo(5)">下一部分 →</button>
+    </div>
+  </div>
+
+  <!-- Section 6 -->
+  <div class="form-section" data-section="5">
+    <div class="section-head">
+      <div class="section-icon">📝</div>
+      <div class="section-head-text">
+        <h2>其他補充</h2>
+        <p>最後一題，也是最開放的一題。</p>
+      </div>
+    </div>
+    <div class="q-item">
+      <div class="q-label"><span class="q-num">6–1</span><span>還有哪些你覺得客戶應該要知道、但我們還沒問到的事？</span></div>
+      <textarea data-key="6-1" placeholder="請輸入回答..." style="min-height:120px"></textarea>
+    </div>
+    <div class="nav-btns">
+      <button class="btn btn-secondary" onclick="goTo(4)">← 上一部分</button>
+      <button class="btn btn-primary" onclick="showSummary()">預覽回答 →</button>
+    </div>
+  </div>
+
+  <!-- Summary / Review -->
+  <div class="summary-page" id="summaryPage">
+    <div class="summary-header">
+      <div class="check-icon" style="background:var(--blue-light);color:var(--blue)">👁</div>
+      <h2>確認回答內容</h2>
+      <p>請確認以下內容無誤，再填入姓名與 Email 後送出。</p>
+    </div>
+
+    <div id="summaryContent"></div>
+
+    <div class="sender-box">
+      <p>填寫後送出，回答會直接寄到內容團隊信箱。</p>
+      <div class="sender-row">
+        <div class="sender-field">
+          <label for="senderName">您的姓名</label>
+          <input type="text" id="senderName" placeholder="例如：王小明">
+        </div>
+        <div class="sender-field">
+          <label for="senderEmail">您的 Email（選填，方便我們追問）</label>
+          <input type="email" id="senderEmail" placeholder="example@linkcooling.com">
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-actions">
+      <button class="btn btn-submit" id="submitBtn" onclick="submitForm()">送出回答 ✓</button>
+      <button class="btn btn-secondary" onclick="hideSummary()">← 返回修改</button>
+    </div>
+  </div>
+
+  <!-- Sent confirmation -->
+  <div class="sent-page" id="sentPage">
+    <div class="check-icon">✓</div>
+    <h2>已成功送出，謝謝！</h2>
+    <p>回答已寄出，內容團隊收到後會開始整理並撰寫文章。<br>如有補充，歡迎直接回覆 Email。</p>
+  </div>
+</div>
+
+<script>
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_ENDPOINT_HERE';
+
+const sections = [
+  { title: "市場定位與競爭", icon: "🎯" },
+  { title: "台灣製造的實質優勢", icon: "🇹🇼" },
+  { title: "客戶樣貌與真實案例", icon: "🌏" },
+  { title: "產品差異", icon: "🔧" },
+  { title: "品牌觀點", icon: "💡" },
+  { title: "其他補充", icon: "📝" }
+];
+
+const questions = {
+  "1-1": "海外客戶最常拿晉惠跟哪些競爭對手比較？",
+  "1-2": "客戶比較時最常問的前三個問題？",
+  "1-3": "晉惠贏得訂單的原因，客戶反映最多的是？",
+  "1-4": "客戶原本選了其他廠商後來轉回晉惠的案例？",
+  "2-1": "晉惠冷卻水塔的大致製造流程？（原料→加工→組裝→測試）",
+  "2-2": "供應鏈中哪些關鍵零件是台灣本地製造或採購的？",
+  "2-3": "台灣製造 vs 其他地區，交期、品質、零件供應的實際差異？",
+  "2-4": "供應鏈風險對客戶採購決策的影響？有客戶轉向台灣的嗎？",
+  "3-1": "海外客戶主要來自哪些國家？哪個市場成長最快？",
+  "3-2": "除印尼食品廠外，其他可公開分享的客戶案例？",
+  "3-3": "客戶第一次聯絡晉惠，最常見的觸發點？",
+  "4-1": "維護晉惠設備 vs 競品，工時差距大概多少？",
+  "5-1": "只有 2 分鐘介紹晉惠，你們會優先說哪個面向？",
+  "5-2": "晉惠和同業最大的差別是哪個項目？（只能說一項）",
+  "5-3": "業界有哪些關於台灣製密閉式冷卻水塔的迷思想澄清？",
+  "6-1": "還有哪些客戶應該知道、但我們還沒問到的事？"
+};
+
+const sectionKeys = [
+  ["1-1","1-2","1-3","1-4"],
+  ["2-1","2-2","2-3","2-4"],
+  ["3-1","3-2","3-3"],
+  ["4-1"],
+  ["5-1","5-2","5-3"],
+  ["6-1"]
+];
+
+let current = 0;
+const answers = {};
+
+const nav = document.getElementById('sectionNav');
+sections.forEach((s, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+  btn.title = s.title;
+  btn.onclick = () => goTo(i);
+  nav.appendChild(btn);
+});
+
+document.querySelectorAll('textarea').forEach(ta => {
+  ta.addEventListener('input', () => {
+    answers[ta.dataset.key] = ta.value.trim();
+    ta.classList.toggle('has-content', ta.value.trim().length > 0);
+    updateProgress();
+  });
+});
+
+function updateProgress() {
+  const total = Object.keys(questions).length;
+  const filled = Object.values(answers).filter(v => v.length > 0).length;
+  const pct = Math.round((filled / total) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+    const done = sectionKeys[i].every(k => answers[k] && answers[k].length > 0);
+    dot.classList.toggle('done', done);
+    dot.classList.toggle('active', i === current);
+  });
+}
+
+function goTo(idx) {
+  document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+  document.querySelector(`[data-section="${idx}"]`).classList.add('active');
+  document.getElementById('summaryPage').classList.remove('active');
+  current = idx;
+  document.getElementById('progressLabel').textContent = `第 ${idx + 1} 頁，共 6 頁`;
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showSummary() {
+  document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('summaryPage').classList.add('active');
+  document.getElementById('progressLabel').textContent = '確認回答';
+
+  let html = '';
+  sections.forEach((sec, i) => {
+    html += `<div class="summary-section">`;
+    html += `<div class="summary-section-title">${sec.icon} ${sec.title}</div>`;
+    sectionKeys[i].forEach(key => {
+      const ans = answers[key] || '';
+      html += `<div class="summary-q">
+        <div class="summary-q-label">${questions[key]}</div>
+        <div class="summary-q-ans${ans ? '' : ' empty'}">${ans ? ans.replace(/</g,'&lt;') : '（未填寫）'}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+  document.getElementById('summaryContent').innerHTML = html;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function hideSummary() {
+  document.getElementById('summaryPage').classList.remove('active');
+  goTo(current < 6 ? current : 5);
+}
+
+async function submitForm() {
+  const btn = document.getElementById('submitBtn');
+  const name = document.getElementById('senderName').value.trim();
+  const email = document.getElementById('senderEmail').value.trim();
+
+  btn.disabled = true;
+  btn.textContent = '送出中...';
+
+  const payload = { _subject: `晉惠品牌訪談回答${name ? ' — ' + name : ''}`, sender_name: name || '（未填寫）', sender_email: email || '（未填寫）' };
+  Object.keys(questions).forEach(k => { payload[`${k}_${questions[k]}`] = answers[k] || '（未填寫）'; });
+
+  try {
+    const res = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) {
+      document.getElementById('summaryPage').classList.remove('active');
+      document.getElementById('sentPage').classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      throw new Error('送出失敗');
+    }
+  } catch {
+    btn.disabled = false;
+    btn.textContent = '送出失敗，請再試一次';
+    setTimeout(() => { btn.textContent = '送出回答 ✓'; }, 3000);
+  }
+}
+
+updateProgress();
+</script>
+</body>
+</html>
